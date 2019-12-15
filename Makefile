@@ -1,5 +1,5 @@
-obj = main.o mem.o
-headers = mem.h
+obj = main.o mem.o strToNum.o
+headers = mem.h strToNum.h
 
 .PHONY: all
 all: eratosthenes
@@ -9,6 +9,7 @@ eratosthenes: $(obj)
 
 main.o: $(headers)
 mem.o: mem.h
+strToNum.o: strToNum.h
 
 .PHONY: clean
 clean:
