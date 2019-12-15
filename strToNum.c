@@ -13,7 +13,7 @@ unsigned long long strToNum(const char *str)
 	{
 		if(*s < '0' || *s > '9')
 		{
-			fprintf(stderr, "%s is not a number value.\n", str);
+			fprintf(stderr, "%s is not a valid number value.\n", str);
 			exit(1);
 		}
 
