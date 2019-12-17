@@ -3,7 +3,7 @@
 
 #include "mem.h"
 #include "strToNum.h"
-#include "simple.h"
+#include "prime.h"
 
 int main(int argc, char **argvs)
 {
