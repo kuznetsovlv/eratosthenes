@@ -12,7 +12,7 @@ unsigned estimate(unsigned long long n)
 	return (unsigned) ceill(logl(n) / n);
 }
 
-void *getPrimes(unsigned long long limit, Variant variant, void (*onPrime)(unsigned long long))
+void *eratosthenes(unsigned long long limit, Variant variant, void (*onPrime)(unsigned long long))
 {
 	switch (variant)
 	{

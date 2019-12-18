@@ -23,7 +23,7 @@ int main(int argc, char **argvs)
 		if (r > num) num = r;
 	}
 
-	getPrimes(num, upTo, __printNumber);
+	eratosthenes(num, upTo, __printNumber);
 
 	return 0;
 }
