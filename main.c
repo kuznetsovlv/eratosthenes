@@ -5,6 +5,8 @@
 #include "strToNum.h"
 #include "prime.h"
 
+void __printNumber(unsigned long long);
+
 int main(int argc, char **argvs)
 {
 	if (argc < 2)
@@ -21,33 +23,12 @@ int main(int argc, char **argvs)
 		if (r > num) num = r;
 	}
 
-	if(num >= 2)
-	{
-		void *list = getMem(estimate(num));
+	getPrimes(num, upTo, __printNumber);
 
-		for(unsigned long long i = 2; i <= num; ++i)
-		{
-			if(!filled(list))
-			{
-				list = putItem(list, i);
-				printf("%llu\n", i);
-			}
-			else
-			{
-				unsigned j;
-				for(j = 0; j < filled(list); ++j)
-				{
-					if(!(i % getItem(list, j))) break;
-				}
-
-				if(j == filled(list))
-				{
-					printf("%llu\n", i);
-					if(filled(list) == size(list)) list = addMem(list, estimate(num - getItem(list, filled(list) -1)));
-					list = putItem(list, i);
-				}
-			}
-		}
-	}
 	return 0;
+}
+
+void __printNumber(unsigned long long x)
+{
+	printf("%llu\n", x);
 }

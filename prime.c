@@ -30,8 +30,27 @@ void *getPrimes(unsigned long long limit, Variant variant, void (*onPrime)(unsig
 
 	unsigned long long i = 2;
 
+	list = putItem(list, i);
+
+	onPrime(i++);
+
 	while(check(list, limit, i))
 	{
+		unsigned long long r = (unsigned long long)ceill(sqrtl(i));
+
+		unsigned j;
+		unsigned long long item;
+		int isPrime;
+		for(j = 0; j < filled(list) && (item = getItem(list, j)) <= r && (isPrime = (i % item)); ++j);
+
+		if(isPrime)
+		{
+			if(filled(list) == size(list)) list = addMem(list, estimate(limit - getItem(list, filled(list) - 1)));
+			list = putItem(list, i);
+			onPrime(i);
+		}
+
+		i += 2;
 	}
 
 	return list;
