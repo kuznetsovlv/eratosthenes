@@ -9,7 +9,7 @@ checker __getChecker(Variant);
 
 unsigned estimate(unsigned long long n)
 {
-	return (unsigned) ceill(logl(n) / n);
+	return (unsigned) ceill(n / logl(n));
 }
 
 void *eratosthenes(unsigned long long limit, Variant variant, void (*onPrime)(unsigned long long))
