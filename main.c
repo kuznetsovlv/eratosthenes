@@ -47,7 +47,7 @@ int main(int argc, char **argvs)
 		initMem, addItem, hasNext, __printNumber
 	};
 
-	eratosthenes(config);
+	free (eratosthenes(config));
 
 	return 0;
 }
