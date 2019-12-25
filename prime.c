@@ -3,51 +3,28 @@
 #include "prime.h"
 #include "mem.h"
 
-int __upToCheck(void *, unsigned long long, unsigned long long);
-int __numsCheck(void *, unsigned long long, unsigned long long);
-checker __getChecker(Variant);
+int __isPrime(void *, unsigned long long);
 
 unsigned estimate(unsigned long long n)
 {
-	return (unsigned) ceill(n / logl(n));
+	return (unsigned) ceill(1.15 * n / logl(n));
 }
 
-void *eratosthenes(unsigned long long limit, Variant variant, void (*onPrime)(unsigned long long))
+void *eratosthenes(Config config)
 {
-	switch (variant)
-	{
-		case upTo:
-			if(limit < 2) return getMem(0);
-			break;
-		case nums:
-			if(limit) return getMem(0);
-			break;
-	}
-
-	void *list = getMem(variant == upTo ? estimate(limit) : limit);
-
-	checker check = __getChecker(variant);
-
+	void *list = config.initMem();
 	unsigned long long i = 2;
 
-	list = putItem(list, i);
+	list = config.addItem(list, i);
 
-	onPrime(i++);
+	config.onPrime(i++);
 
-	while(check(list, limit, i))
+	while(config.hasNext(list, i))
 	{
-		unsigned long long r = (unsigned long long)ceill(sqrtl(i));
-
-		unsigned j;
-		unsigned long long item;
-		int isPrime;
-		for(j = 0; j < filled(list) && (item = getItem(list, j)) <= r && (isPrime = (i % item)); ++j);
-
-		if(isPrime)
+		if(__isPrime(list, i))
 		{
-			if(filled(list) == size(list)) list = addMem(list, estimate(limit - getItem(list, filled(list) - 1)));
-			list = putItem(list, i);
-			onPrime(i);
+			list = config.addItem(list, i);
+			config.onPrime(i);
 		}
 
 		i += 2;
@@ -56,17 +33,15 @@ void *eratosthenes(unsigned long long limit, Variant variant, void (*onPrime)(un
 	return list;
 }
 
-int __upToCheck(void *list, unsigned long long limit, unsigned long long num)
+int __isPrime(void *list, unsigned long long x)
 {
-	return num <= limit;
-}
+	unsigned long long sqroot = (unsigned long long)ceil(sqrtl(x));
 
-int __numsCheck(void *list, unsigned long long limit, unsigned long long num)
-{
-	return filled(list) < limit;
-}
+	unsigned i;
+	unsigned long long item;
+	int isPrime;
 
-checker __getChecker(Variant variant)
-{
-	return variant == upTo ? __upToCheck : __numsCheck;
+	for(i = 0; i < filled(list) && (item = getItem(list, i)) <= sqroot && (isPrime = (x % item)); ++i);
+
+	return isPrime;
 }

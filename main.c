@@ -23,7 +23,31 @@ int main(int argc, char **argvs)
 		if (r > num) num = r;
 	}
 
-	eratosthenes(num, upTo, __printNumber);
+	void *initMem(void)
+	{
+		return getMem(estimate(num));
+	}
+
+	void *addItem(void *list, unsigned long long val)
+	{
+		if(size(list) == filled(list))
+		{
+			list = addMem(list, estimate(num - val));
+		}
+
+		return putItem(list, val);
+	}
+
+	int hasNext(void *list, unsigned long long val)
+	{
+		return val <= num;
+	}
+
+	Config config = {
+		initMem, addItem, hasNext, __printNumber
+	};
+
+	eratosthenes(config);
 
 	return 0;
 }
