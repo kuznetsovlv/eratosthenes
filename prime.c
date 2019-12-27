@@ -5,9 +5,13 @@
 
 int __isPrime(void *, unsigned long long);
 
-unsigned estimate(unsigned long long n)
+size_t estimate(unsigned long long n)
 {
-	return (unsigned) ceill(1.15 * n / logl(n));
+	long double size = 0.0;
+
+	for(unsigned long long i = 2; i <= n; ++i)
+		size += 1.0/logl(i);
+	return (size_t) ceill(size);
 }
 
 void *eratosthenes(Config config)

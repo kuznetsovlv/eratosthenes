@@ -1,5 +1,6 @@
 #ifndef __PRIME
 #define __PRIME
+#include <stdlib.h>
 typedef void *(*init_mem)(void);
 typedef void *(*add_item)(void *, unsigned long long);
 typedef int (*has_next)(void *, unsigned long long);
@@ -10,6 +11,6 @@ typedef struct Config {
 	has_next hasNext;
 	on_prime onPrime;
 } Config;
-unsigned estimate(unsigned long long);
+size_t estimate(unsigned long long);
 void *eratosthenes(Config);
 #endif
