@@ -31,7 +31,7 @@ int main(int argc, char **argvs)
 	{
 		if(size(list) == filled(list))
 		{
-			list = addMem(list, estimate(num - val));
+			list = addMem(list, (val - getLast(list)) / 2);
 		}
 
 		return putItem(list, val);

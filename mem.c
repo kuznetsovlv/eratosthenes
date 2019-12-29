@@ -70,6 +70,11 @@ unsigned long long getItem(void *mem, size_t i)
 	return *((unsigned long long *)((size_t *)mem + 2) + i);
 }
 
+unsigned long long getLast(void *mem)
+{
+	return getItem(mem, filled(mem) - 1);
+}
+
 size_t size(void *mem)
 {
 	return *(size_t *)mem;
